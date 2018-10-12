@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <bean id="retrofitConfigurator" class="com.xlm.example.spring.config.RetrofitConfigurator">
+        <property name="basePackage" value="com.xlm.example.http"></property>
+        <property name="config"  ref="retrofitConfig"></property>
+        <property name="appendName" value="One"></property>
+    </bean>
+    <bean id="retrofitConfig" class="com.xlm.example.spring.config.RetrofitConfig">
+        <property name="baseUrl" value="https://api.github.com"></property>
+    </bean>
+
+    <bean id="retrofitConfigurator2" class="com.xlm.example.spring.config.RetrofitConfigurator">
+        <property name="basePackage" value="com.xlm.example.http"></property>
+        <property name="config"  ref="retrofitConfig"></property>
+        <property name="appendName" value="Two"></property>
+    </bean>
+</beans>

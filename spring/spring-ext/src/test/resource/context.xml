@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:lock="http://www.xlm.com/schema/lock"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.xlm.com/schema/lock classpath:/META-INF/lock.xsd">
+    <bean name="lockManager" class="com.xlm.example.lock.LockFactoryManager">
+    </bean>
+
+    <!--<bean name="operationSourceAdvisor" class="com.xlm.example.aop.OperationSourceAdvisor">
+        <property name="advice" ref="lockMethodIntercptor"></property>
+        <property name="operationSource" ref="annotationLockOperationSource"></property>
+    </bean>
+    <bean name="lockMethodIntercptor" class="com.xlm.example.lock.LockMethodIntercptor">
+        <property name="operationSource" ref="annotationLockOperationSource"></property>
+    </bean>
+
+    <bean name="annotationLockOperationSource" class="com.xlm.example.lock.AnnotationLockOperationSource">
+    </bean>-->
+    <lock:annotation-driven lock-arg="argumentsOperationSource" />
+    <bean name="argumentsOperationSource" class="com.xlm.example.lock.ArgumentsOperationSourceImpl"></bean>
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+    <context:component-scan base-package="com.xlm.example.service"></context:component-scan>
+</beans>
