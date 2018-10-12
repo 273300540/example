@@ -1,17 +1,23 @@
 package com.xlm.example.web.controller;
 
+import com.xlm.example.http.Http2Test;
+import com.xlm.example.http.HttpTest;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.MimeType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 
 @Controller
 public class HelloWorldController {
-
+    @Resource
+    private HttpTest httpTest;
+    @Resource
+    private Http2Test http2Test;
 
     @RequestMapping(value = "/path",produces =("text/plain") )
     @ResponseBody
@@ -39,5 +45,15 @@ public class HelloWorldController {
             }
         }
         return url.getPath();
+    }
+
+    @RequestMapping(value = "/httpTest",produces =("application/json") )
+    @ResponseBody
+    public Object httpTest(String command) throws IOException {
+
+        ArrayList list = new ArrayList<>() ;
+        list .addAll(httpTest.contributors("square", "retrofit"));
+        list.addAll(http2Test.contributors("square", "retrofit"));
+        return list;
     }
 }

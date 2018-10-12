@@ -1,34 +1,22 @@
-# maven ignore
-target/
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
 *.jar
 *.war
-*.zip
-*.tar
+*.ear
 
-# eclipse ignore
-.settings/
-.project
-.classpath
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
 
-# idea ignore
-.idea/
-*.ipr
+target/
+*.project
+.settings
+*.classpath
+*.idea
 *.iml
-*.iws
-
-# temp ignore
-logs/
-*.doc
-*.log
-*.cache
-*.diff
-*.patch
-*.tmp
-
-# system ignore
-.DS_Store
-Thumbs.db
-
-
-#
+*.class
+/idea/
 **/passwd.properties
