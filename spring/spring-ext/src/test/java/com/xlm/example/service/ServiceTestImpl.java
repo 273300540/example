@@ -1,6 +1,7 @@
 package com.xlm.example.service;
 
 import com.xlm.example.Factory;
+import com.xlm.example.bpp.ValueAppend;
 import com.xlm.example.lock.Lock;
 import com.xlm.example.lock.LockSource;
 import com.xlm.example.spel.MethodExpressionRootObject;
@@ -11,17 +12,22 @@ import java.util.List;
 
 @Service
 public class ServiceTestImpl implements ServiceTest {
+    @ValueAppend("${ddddd}")
+    public String dddd="fafd";
+    @ValueAppend(value = "${ddddd}",prefix = false)
+    public String dddd2="fafd";
     @Override
     @Lock(name = "'test'", factoryName = "'test'", timeOut = 5, order = -1)
     @Lock(name = "test2", factoryName = "test", timeOut = 5)
     @Lock(name = "#name", factoryName = "#factory", timeOut = 5,expression = true)
     public String testAop(String name, String factory) {
         try {
+            System.out.println(Thread.currentThread().getName()+"===睡眠执行======");
             Thread.sleep(3000L);
         } catch (Exception e) {
 
         }
-        System.out.println("tttttttttttttttttttttttttt");
+        System.out.println(Thread.currentThread().getName()+"===执行======");
         return "ttttttt";
     }
 
@@ -54,5 +60,12 @@ public class ServiceTestImpl implements ServiceTest {
             }
             return list;
         }
+    }
+
+    @Override
+    public String testValueAppend() {
+        System.out.println(dddd);
+        System.out.println(dddd2);
+        return dddd;
     }
 }

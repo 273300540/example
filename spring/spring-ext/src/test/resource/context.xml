@@ -15,6 +15,8 @@
         http://www.xlm.com/schema/lock classpath:/META-INF/lock.xsd">
     <bean name="lockManager" class="com.xlm.example.lock.LockFactoryManager">
     </bean>
+    <context:property-placeholder location="classpath:config.properties"></context:property-placeholder>
+    <bean class="com.xlm.example.bpp.ValueAppendAnnotationInjectBeanPostProcessor"></bean>
 
     <!--<bean name="operationSourceAdvisor" class="com.xlm.example.aop.OperationSourceAdvisor">
         <property name="advice" ref="lockMethodIntercptor"></property>

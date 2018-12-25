@@ -16,19 +16,19 @@ import javax.annotation.Resource;
 public class AppTest {
     @Resource
     private ServiceTest test;
-    private volatile  boolean await =true;
-    String name ="name";
-    String factoryName ="factoryName";
+    private volatile boolean await = true;
+    String name = "name";
+    String factoryName = "factoryName";
 
     /**
      * Rigorous Test :-)
      */
     @Test
     public void shouldAnswerWithTrue() {
-        new Thread() {
+        new Thread("线程11111111") {
             public void run() {
                 try {
-                    test.testAop(name,factoryName);
+                    test.testAop(name, factoryName);
                 } finally {
                     await = false;
                 }
@@ -36,7 +36,7 @@ public class AppTest {
 
             }
         }.start();
-        test.testAop(name,factoryName);
+        test.testAop(name, factoryName);
         while (await) {
 
         }
@@ -61,5 +61,10 @@ public class AppTest {
 
         }
 
+    }
+
+    @Test
+    public  void valueAppend(){
+        test.testValueAppend();
     }
 }

@@ -1,5 +1,9 @@
 package com.xlm.example;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -18,7 +22,6 @@ public class SeleniumMain {
         System.setProperty(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, "D:\\download\\phantomjs-2.1.1-windows\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");
     }
     public static void main1(String[] args) {
-
         PhantomJSDriver driver = getDriver();
         driver.get("https://list.tmall.com/search_product.htm?spm=a221t.1710963.8073444875.1.6b291135b3qB61&q=%CF%C4%BC%BE&cat=53636001&active=1&style=g&from=sn_1_rightnav&acm=lb-zebra-7499-262419.1003.4.408088&sort=s&search_condition=23&scm=1003.4.lb-zebra-7499-262419.OTHER_14895286190510_408088#J_crumbs");
         List<WebElement> webElements = driver.findElementsByClassName("product");
@@ -31,7 +34,6 @@ public class SeleniumMain {
             detailList.add(webElement.findElement(By.className("productImg")));
             System.out.println(i++);
         }
-
         System.out.println(detailList);
     }
     public static void main(String[] args){
@@ -42,9 +44,19 @@ public class SeleniumMain {
         webElement.sendKeys("女单鞋");
         WebElement submit = driver.findElementByCssSelector("form[name=searchTop] button");
         submit.click();
-        System.out.println(driver.getPageSource());
-
+        searchPageHandle(driver.getPageSource());
     }
+
+    public static void searchPageHandle(String source){
+        Document document =Jsoup.parse(source);
+        Elements elements = document.select(".product:not(.album-new)");
+        for(Element element:elements){
+            Element one = element.selectFirst(".productImg");
+            System.out.println(one);
+        }
+    }
+
+
 
     public static PhantomJSDriver getDriver() {
         DesiredCapabilities dcaps = new DesiredCapabilities();
@@ -74,7 +86,6 @@ public class SeleniumMain {
 //        proxy.setHttpProxy("http://180.155.128.87:47593/");
 //        dcaps.setCapability(CapabilityType.PROXY, proxy);
 
-
         //创建无界面浏览器对象
         PhantomJSDriver driver = new PhantomJSDriver(dcaps);
         driver.manage().timeouts().pageLoadTimeout(120, TimeUnit.SECONDS);
@@ -82,6 +93,7 @@ public class SeleniumMain {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().deleteAllCookies();
         driver.manage().window().setSize(new Dimension(1920, 1080));
+
         return driver;
     }
 }

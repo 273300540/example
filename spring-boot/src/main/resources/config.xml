@@ -4,6 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-    <bean id="xmlConfigService" class="com.miz.example.service.XmlConfigService">
+    <bean id="xmlConfigService" class="com.xlm.example.service.XmlConfigService">
     </bean>
 </beans>
